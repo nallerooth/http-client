@@ -9,12 +9,12 @@
 
 #include "socket.h"
 
-static char* _socket_create_incoming_buffer()
+static char *_socket_create_incoming_buffer()
 {
     return malloc(sizeof(char) * HTTP_SOCKET_BUF_SIZE);
 }
 
-static int _socket_connect_to(char* addr, unsigned short port)
+static int _socket_connect_to(char *addr, unsigned short port)
 {
     int socket_handle;
     struct sockaddr_in socket_details;
@@ -44,10 +44,10 @@ static void _socket_close(int socket_handle)
     }
 }
 
-static char* _send_request(int socket_handle, char* http_request)
+static char *_send_request(int socket_handle, char *http_request)
 {
     ssize_t bytes;
-    char* buf = _socket_create_incoming_buffer();
+    char *buf = _socket_create_incoming_buffer();
 
     printf("Sending REQ: %s\n", http_request);
 
@@ -61,7 +61,7 @@ static char* _send_request(int socket_handle, char* http_request)
     return buf;
 }
 
-void socket_free_buffer(char* buf)
+void socket_free_buffer(char *buf)
 {
     if (buf) {
         free(buf);
@@ -71,7 +71,7 @@ void socket_free_buffer(char* buf)
 char *socket_send(char *url, unsigned short port, char *http_request)
 {
     int s = _socket_connect_to(url, port);
-    char* buf = _send_request(s, http_request);
+    char *buf = _send_request(s, http_request);
     _socket_close(s);
 
     return buf;
